@@ -1,24 +1,20 @@
-const notFound =(req,res,next)=>{
-    const error = new Error`Nor found - ${req.originalURL}`;
-    res.status(400);
-    next(error)
-}
+const notFound = (req, res, next) => {
+    const error = new Error(`Not found - ${req.originalUrl}`);
+    res.status(404); // 404 is the correct status code for "Not Found"
+    next(error);
+};
 
-const errorHandler = (err,req,res,next)=>{
-    let statusCode  = res.statusCode===200?500:res.statusCode
-    let message = err.message
+const errorHandler = (err, req, res, next) => {
+    const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+    const message = err.message;
 
-    if(err.name==='CastError' && err.kind === 'ObjectId'){
-        statusCode = 400;
-        message = 'Resource not found';
-    }
     res.status(statusCode).json({
         message,
-        stack: process.env.NODE_ENV === 'production' ? null :err.stack
-    })
-}
+        stack: process.env.NODE_ENV === 'production' ? null : err.stack
+    });
+};
 
 export {
     notFound,
     errorHandler
-}
+};
