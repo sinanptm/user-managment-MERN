@@ -14,6 +14,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [number, setNumber] = useState(0);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,6 +36,8 @@ const RegisterScreen = () => {
     e.preventDefault();
     if (name.trim() === "") {
       toast.error("Name cannot be empty", toastStyle);
+    } else if (number.length < 10) {
+      toast.error("Phone number should be atleast 10 characters", toastStyle);
     } else if (password.trim().length < 4) {
       toast.error("Password Should be atleast 4 letters", toastStyle);
     } else if (password !== confirmPassword) {
@@ -43,7 +46,7 @@ const RegisterScreen = () => {
       toast.error("Email format is incorrect", toastStyle);
     } else {
       try {
-        const res = await register({ name, email, password }).unwrap();
+        const res = await register({ name, email, password, number }).unwrap();
         dispatch(setCredentials({ ...res }));
         navigate("/");
       } catch (error) {
@@ -77,6 +80,15 @@ const RegisterScreen = () => {
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
+        <Form.Group className="my-2" controlId="number">
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Enter Phone number"
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
           ></Form.Control>
         </Form.Group>
         <Form.Group className="my-2" controlId="password">

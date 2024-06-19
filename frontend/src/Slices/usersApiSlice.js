@@ -1,6 +1,7 @@
 import { apiSlice } from "./apiSlice";
 
 const USER_URL = '/api/users';
+const ADMIN_URL = '/api/admin';
 
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -27,11 +28,24 @@ export const userApiSlice = apiSlice.injectEndpoints({
         updateUser: builder.mutation({
             query: data => ({
                 url: `${USER_URL}/home`,
-                method: "put",
+                method: "PUT",
                 body: data,
+            }),
+        }),
+        adminLogin: builder.mutation({
+            query: data => ({
+                url: `${ADMIN_URL}/auth`,
+                method: "POST",
+                body: data,
+            }),
+        }),
+        adminLogout: builder.mutation({
+            query: () => ({
+                url: `${ADMIN_URL}/logout`,
+                method: "POST",
             }),
         }),
     }),
 });
 
-export const { useLoginMutation, useLogoutMutation,useRegisterMutation, useUpdateUserMutation } = userApiSlice;
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useUpdateUserMutation, useAdminLoginMutation,useAdminLogoutMutation } = userApiSlice;

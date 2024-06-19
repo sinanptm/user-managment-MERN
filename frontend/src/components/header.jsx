@@ -4,20 +4,32 @@ import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useLogoutMutation } from "../Slices/usersApiSlice";
-import { logout } from "../Slices/authSlice";
+import { useLogoutMutation, useAdminLogoutMutation } from "../Slices/usersApiSlice";
+import { logout,adminLogout } from "../Slices/authSlice";
 
 const Header = () => {
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo, adminInfo } = useSelector((state) => state.auth); // Fetch both userInfo and adminInfo from Redux state
   const [logoutApiCall] = useLogoutMutation();
+  const [adminLogoutApiCall] = useAdminLogoutMutation();
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const logoutHandler = async () => {
+  const userLogoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
-      navigate('/login');
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const adminLogoutHandler = async () => {
+    try {
+      await adminLogoutApiCall().unwrap();
+      dispatch(adminLogout());
+      navigate("/login");
     } catch (error) {
       console.error(error);
     }
@@ -35,8 +47,14 @@ const Header = () => {
             <Nav className="ms-auto">
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id="username">
-                  <NavDropdown.Item onClick={logoutHandler}>
+                  <NavDropdown.Item onClick={userLogoutHandler}>
                     Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : adminInfo ? (
+                <NavDropdown title="Admin" id="adminUsername">
+                  <NavDropdown.Item onClick={adminLogoutHandler}>
+                    Admin Logout
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (

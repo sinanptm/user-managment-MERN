@@ -10,17 +10,55 @@ import { Provider } from "react-redux";
 import Spinner from "./components/SpinnerComponent.jsx";
 import App from "./App.jsx";
 import store from "./Store.js";
-import PrivateRoute from "./components/PrivateRoute.jsx";
+import UserPrivateRoute from "./components/PrivateRoute.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { AdminPrivateRoute } from "./components/PrivateRoute.jsx";
+
 const HomeScreen = lazy(() => import("./screens/HomeScreen.jsx"));
 const LoginScreen = lazy(() => import("./screens/LoginScreen.jsx"));
 const RegisterScreen = lazy(() => import("./screens/RegisterScreen.jsx"));
-import "bootstrap/dist/css/bootstrap.min.css";
+const AdminDashboard = lazy(() => import("./screens/AdminDashboard.jsx"));
+const AdminLoginScreen = lazy(() => import("./screens/AdminLoginScreen.jsx"));
+const AdminEditUserScreen = lazy(() =>
+  import("./screens/AdminEditUserForm.jsx")
+);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      {/* Private routes */}
-      <Route path="" element={<PrivateRoute />}>
+      <Route
+        path="/admin/login"
+        element={
+          <Suspense fallback={<Spinner />}>
+            <AdminLoginScreen />
+          </Suspense>
+        }
+      />
+      {/* Private route for admin */}
+      <Route path="/admin" element={<AdminPrivateRoute />}>
+        <Route
+          index
+          element={
+            <Suspense fallback={<Spinner />}>
+              <AdminDashboard />
+            </Suspense>
+          }
+        />
+      </Route>
+
+      <Route path="/admin/edit/:id" element={<AdminPrivateRoute />}>
+        <Route
+          index
+          element={
+            <Suspense fallback={<Spinner />}>
+              <AdminEditUserScreen />
+            </Suspense>
+          }
+        />
+      </Route>
+
+      {/* Private routes for users */}
+      <Route path="" element={<UserPrivateRoute />}>
         <Route
           index
           element={
@@ -38,7 +76,6 @@ const router = createBrowserRouter(
           }
         />
       </Route>
-      
       <Route
         path="/login"
         element={
@@ -58,6 +95,7 @@ const router = createBrowserRouter(
     </Route>
   )
 );
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <React.StrictMode>
