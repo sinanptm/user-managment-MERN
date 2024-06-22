@@ -14,7 +14,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const RegisterScreen = () => {
     setName(userInfo.name);
     setEmail(userInfo.email);
     setNumber(userInfo.number)
-  }, [userInfo.name, userInfo.email]);
+  }, [userInfo.name, userInfo.email,userInfo.number]);
 
   const toastStyle = {
     autoClose: 1000,

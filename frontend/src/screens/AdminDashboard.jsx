@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Navbar, Container } from "react-bootstrap";
 import Spinner from "../components/SpinnerComponent";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [search,setSearch] =  useState('')
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +28,10 @@ const AdminDashboard = () => {
     navigate(`/admin/edit/${userId}`)
   };
 
+  // const handleSearch = e=>{
+    
+  // }
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -34,6 +39,11 @@ const AdminDashboard = () => {
   return (
     <div>
       <h1>Admin Dashboard</h1>
+      {/* <Navbar bg="white" variant="dark" expand="lg" collapseOnSelect style={{height:'50px'}}>
+            <Container>
+              <input type="text" placeholder="Search input" value={search} name="search" onChange={handleSearch}/>
+            </Container>
+      </Navbar> */}
       <Table striped bordered hover>
         <thead>
           <tr>

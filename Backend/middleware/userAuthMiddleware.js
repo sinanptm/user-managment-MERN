@@ -3,9 +3,8 @@ import jwt from "jsonwebtoken";
 import User from "../models/userModels.js";
 
 
-const protect = expressAsyncHandler(async (req, res, next) => {
-    let token;
-    token = req.cookies.jwt;
+const protectUser = expressAsyncHandler(async (req, res, next) => {
+    let token = req.cookies.jwt;
     if (token) {
         try {
             const decoded = jwt.verify(token,process.env.JWT_SECRET)
@@ -21,4 +20,4 @@ const protect = expressAsyncHandler(async (req, res, next) => {
     }
 })
 
-export default protect
+export default protectUser
