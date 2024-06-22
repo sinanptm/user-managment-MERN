@@ -14,12 +14,13 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [number, setNumber] = useState();
+  const [number, setNumber] = useState(0);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.auth);
+  console.log(userInfo);
 
   const [updateProfile, { isLoading }] = useUpdateUserMutation();
 
@@ -52,6 +53,7 @@ const RegisterScreen = () => {
           name,
           email,
           password,
+          number
         }).unwrap();
         dispatch(setCredentials({ ...res }));
         toast.success("Profile Updated", toastStyle);
