@@ -48,45 +48,45 @@ const RegisterScreen = () => {
     }));
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const maxSize = 10 * 1024 * 1024; // 10 MB
-  
-    if (file) {
-      if (file.size > maxSize) {
-        toast.error("File size too large. Maximum size is 10 MB");
-        document.getElementById("image").value = "";
-        setFormData((prevData) => ({
-          ...prevData,
-          image: "",
-        }));
-        setImagePreview("");
-        return;
-      }
-  
-      if (file.type.startsWith("image/")) {
-        setFormData((prevData) => ({
-          ...prevData,
-          image: file,
-        }));
-  
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setImagePreview(reader.result);
-        };
-        reader.readAsDataURL(file);
-      } else {
-        toast.error("Profile image must be a valid image");
-        document.getElementById("image").value = "";
-        setFormData((prevData) => ({
-          ...prevData,
-          image: "",
-        }));
-        setImagePreview("");
-      }
+ const handleImageChange = (e) => {
+  const file = e.target.files[0];
+  const maxSize = 10 * 1024 * 1024;
+
+  if (file) {
+    if (file.size > maxSize) {
+      toast.error("File size too large. Maximum size is 10 MB");
+      document.getElementById("image").value = "";
+      setFormData((prevData) => ({
+        ...prevData,
+        image: "",
+      }));
+      setImagePreview("");
+      return;
     }
-  };
-  
+
+    if (file.type.startsWith("image/")) {
+      setFormData((prevData) => ({
+        ...prevData,
+        image: file,
+      }));
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      toast.error("Profile image must be a valid image");
+      document.getElementById("image").value = "";
+      setFormData((prevData) => ({
+        ...prevData,
+        image: "",
+      }));
+      setImagePreview("");
+    }
+  }
+};
+
 
   const submitHandler = async (e) => {
     e.preventDefault();

@@ -1,17 +1,13 @@
-import React from "react";
-import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
-import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
-import { LinkContainer } from "react-router-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  useLogoutMutation,
-  useAdminLogoutMutation,
-} from "../Slices/usersApiSlice";
-import { logout, adminLogout } from "../Slices/authSlice";
+import React from 'react';
+import { Navbar, Nav, Container, NavDropdown, Image } from 'react-bootstrap';
+import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLogoutMutation, useAdminLogoutMutation } from '../Slices/usersApiSlice';
+import { logout, adminLogout } from '../Slices/authSlice';
 
 const Header = () => {
-  const { userInfo, adminInfo } = useSelector((state) => state.auth); // Fetch both userInfo and adminInfo from Redux state
+  const { userInfo, adminInfo } = useSelector((state) => state.auth); 
   const [logoutApiCall] = useLogoutMutation();
   const [adminLogoutApiCall] = useAdminLogoutMutation();
 
@@ -42,41 +38,68 @@ const Header = () => {
     return (
       <>
         {userInfo ? (
-          <NavDropdown title={userInfo.name} id="username">
+          <NavDropdown 
+            title={
+              <>
+                <Image 
+                  src={userInfo.image} 
+                  roundedCircle 
+                  width="30" 
+                  height="30" 
+                  alt="Profile" 
+                  className="me-2" 
+                />
+                {userInfo.name}
+              </>
+            } 
+            id="username"
+          >
             <NavDropdown.Item onClick={userLogoutHandler}>
               Logout
             </NavDropdown.Item>
           </NavDropdown>
         ) : adminInfo ? (
-          <NavDropdown title="Admin" id="adminUsername">
+          <NavDropdown 
+            title={
+              <>
+                <Image 
+                  src={adminInfo.image} 
+                  roundedCircle 
+                  width="30" 
+                  height="30" 
+                  alt="Profile" 
+                  className="me-2" 
+                />
+                Admin
+              </>
+            } 
+            id="adminUsername"
+          >
             <NavDropdown.Item onClick={adminLogoutHandler}>
               Admin Logout
             </NavDropdown.Item>
           </NavDropdown>
         ) : (
           <>
-            <LinkContainer to="/login">
-              <Nav.Link>
-                <FaSignInAlt /> Sign In
-              </Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/register">
-              <Nav.Link>
-                <FaSignOutAlt /> Sign Up
-              </Nav.Link>
-            </LinkContainer>
+            <Nav.Link as={NavLink} to="/login">
+              <FaSignInAlt /> Sign In
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/register">
+              <FaSignOutAlt /> Sign Up
+            </Nav.Link>
           </>
         )}
       </>
     );
   };
+
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
-          <LinkContainer to="/">
-            <Navbar.Brand>MERN APP</Navbar.Brand>
-          </LinkContainer>
+          <Navbar.Brand as={NavLink} to="/">
+            MERN APP
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">

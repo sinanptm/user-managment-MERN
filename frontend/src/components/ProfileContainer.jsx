@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useUpdateUserMutation } from "../Slices/usersApiSlice.js";
 import { setCredentials } from "../Slices/authSlice";
 import isValidEmail from "../utils/isValidEmail.js";
-import { uploadImageToCloudinary } from '../utils/Cloudinary.js';
+import { uploadImageToCloudinary } from "../utils/Cloudinary.js";
 import { useLoading } from "../provider/IsLoadingProvider.jsx";
 
 const ProfileContainer = () => {
@@ -18,12 +18,12 @@ const ProfileContainer = () => {
   const [number, setNumber] = useState("");
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState("");
-  
-  const {loading,setLoading} = useLoading();
+
+  const { loading, setLoading } = useLoading();
   const dispatch = useDispatch();
-  
+
   const { userInfo } = useSelector((state) => state.auth);
-  let  [updateProfile, { isLoading }] = useUpdateUserMutation();
+  let [updateProfile, { isLoading }] = useUpdateUserMutation();
 
   useEffect(() => {
     setName(userInfo.name);
@@ -39,43 +39,31 @@ const ProfileContainer = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    const maxSize = 10 * 1024 * 1024; 
-  
+    const maxSize = 10 * 1024 * 1024;
+
     if (file) {
       if (file.size > maxSize) {
-        toast.error("File size too large. Maximum size is 10 MB");
-        document.getElementById("image").value = "";
-        setFormData((prevData) => ({
-          ...prevData,
-          image: "",
-        }));
+        toast.error("File size too large. Maximum size is 10 MB", toastStyle);
+        setImage(null);
         setImagePreview("");
         return;
       }
-  
+
       if (file.type.startsWith("image/")) {
-        setFormData((prevData) => ({
-          ...prevData,
-          image: file,
-        }));
-  
+        setImage(file);
+
         const reader = new FileReader();
         reader.onloadend = () => {
           setImagePreview(reader.result);
         };
         reader.readAsDataURL(file);
       } else {
-        toast.error("Profile image must be a valid image");
-        document.getElementById("image").value = "";
-        setFormData((prevData) => ({
-          ...prevData,
-          image: "",
-        }));
+        toast.error("Profile image must be a valid image", toastStyle);
+        setImage(null);
         setImagePreview("");
       }
     }
   };
-  
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -92,9 +80,9 @@ const ProfileContainer = () => {
     } else {
       try {
         let imageUrl = image;
-        
+
         if (image && typeof image !== "string") {
-          imageUrl = await uploadImageToCloudinary(image,setLoading);
+          imageUrl = await uploadImageToCloudinary(image, setLoading);
         }
 
         const res = await updateProfile({
@@ -105,7 +93,7 @@ const ProfileContainer = () => {
           number,
           image: imageUrl,
         }).unwrap();
-        
+
         dispatch(setCredentials({ ...res }));
         toast.success("Profile Updated", toastStyle);
       } catch (error) {
@@ -114,7 +102,7 @@ const ProfileContainer = () => {
     }
   };
 
-  if (isLoading|| loading) {
+  if (isLoading || loading) {
     return <Spinner />;
   }
 
@@ -164,7 +152,11 @@ const ProfileContainer = () => {
           />
           {imagePreview && (
             <div className="mt-2 text-center">
-              <Image src={imagePreview} roundedCircle style={{ width: "120px", height: "120px" }} />
+              <Image
+                src={imagePreview}
+                roundedCircle
+                style={{ width: "120px", height: "120px" }}
+              />
             </div>
           )}
         </Form.Group>
@@ -191,7 +183,11 @@ const ProfileContainer = () => {
           />
         </Form.Group>
 
-        <Button type="submit" variant="primary" className="btn-block rounded-pill mt-4">
+        <Button
+          type="submit"
+          variant="primary"
+          className="btn-block rounded-pill mt-4"
+        >
           Update Profile
         </Button>
       </Form>
