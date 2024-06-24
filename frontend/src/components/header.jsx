@@ -4,8 +4,11 @@ import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useLogoutMutation, useAdminLogoutMutation } from "../Slices/usersApiSlice";
-import { logout,adminLogout } from "../Slices/authSlice";
+import {
+  useLogoutMutation,
+  useAdminLogoutMutation,
+} from "../Slices/usersApiSlice";
+import { logout, adminLogout } from "../Slices/authSlice";
 
 const Header = () => {
   const { userInfo, adminInfo } = useSelector((state) => state.auth); // Fetch both userInfo and adminInfo from Redux state
@@ -35,6 +38,38 @@ const Header = () => {
     }
   };
 
+  const DropDown = () => {
+    return (
+      <>
+        {userInfo ? (
+          <NavDropdown title={userInfo.name} id="username">
+            <NavDropdown.Item onClick={userLogoutHandler}>
+              Logout
+            </NavDropdown.Item>
+          </NavDropdown>
+        ) : adminInfo ? (
+          <NavDropdown title="Admin" id="adminUsername">
+            <NavDropdown.Item onClick={adminLogoutHandler}>
+              Admin Logout
+            </NavDropdown.Item>
+          </NavDropdown>
+        ) : (
+          <>
+            <LinkContainer to="/login">
+              <Nav.Link>
+                <FaSignInAlt /> Sign In
+              </Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/register">
+              <Nav.Link>
+                <FaSignOutAlt /> Sign Up
+              </Nav.Link>
+            </LinkContainer>
+          </>
+        )}
+      </>
+    );
+  };
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
@@ -45,32 +80,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              {userInfo ? (
-                <NavDropdown title={userInfo.name} id="username">
-                  <NavDropdown.Item onClick={userLogoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : adminInfo ? (
-                <NavDropdown title="Admin" id="adminUsername">
-                  <NavDropdown.Item onClick={adminLogoutHandler}>
-                    Admin Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : (
-                <>
-                  <LinkContainer to="/login">
-                    <Nav.Link>
-                      <FaSignInAlt /> Sign In
-                    </Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/register">
-                    <Nav.Link>
-                      <FaSignOutAlt /> Sign Up
-                    </Nav.Link>
-                  </LinkContainer>
-                </>
-              )}
+              <DropDown />
             </Nav>
           </Navbar.Collapse>
         </Container>

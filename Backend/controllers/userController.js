@@ -11,7 +11,9 @@ const authUser = asyncHandler(async (req, res) => {
         res.status(200).json({
             id: user._id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            number: user.number,
+            image: user.image
         });
     } else {
         res.status(401);
@@ -21,7 +23,7 @@ const authUser = asyncHandler(async (req, res) => {
 
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { name, email, password,number } = req.body;
+    const { name, email, password, number, image } = req.body;
     const userExist = await User.findOne({ email });
 
     if (userExist) {
@@ -33,7 +35,8 @@ const registerUser = asyncHandler(async (req, res) => {
         name,
         email,
         password,
-        number
+        number,
+        image
     });
 
     if (user) {
@@ -42,7 +45,8 @@ const registerUser = asyncHandler(async (req, res) => {
             id: user._id,
             name: user.name,
             email: user.email,
-            number:user.number
+            number: user.number,
+            image: user.image
         });
     } else {
         res.status(400);
@@ -61,8 +65,8 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 
 const getProfile = asyncHandler(async (req, res) => {
-    const { email, name, _id,number } = req.user;
-    res.status(200).json({ _id, name, email,number });
+    const { email, name, _id, number, image } = req.user;
+    res.status(200).json({ _id, name, email, number, image });
 });
 
 const updateProfile = asyncHandler(async (req, res) => {
@@ -70,6 +74,8 @@ const updateProfile = asyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
+        user.number = req.body.number || user.number;
+        user.image = req.body.image || user.image;
         if (req.body.password) {
             user.password = req.body.password;
         }
@@ -79,7 +85,9 @@ const updateProfile = asyncHandler(async (req, res) => {
         res.status(200).json({
             _id: updatedUser._id,
             name: updatedUser.name,
-            email: updatedUser.email
+            email: updatedUser.email,
+            number: updatedUser.number,
+            image: updatedUser.image
         });
     } else {
         res.status(404);

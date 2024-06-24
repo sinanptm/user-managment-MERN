@@ -1,9 +1,9 @@
 import React from 'react'
-import Hero from '../components/Hero.jsx'
+import ProfileScreen from '../components/ProfileContainer.jsx'
 
 const HomePage = () => {
   return (
-    <Hero />
+    <ProfileScreen />
   )
 }
 
