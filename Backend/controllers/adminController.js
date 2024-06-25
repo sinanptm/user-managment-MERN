@@ -25,11 +25,11 @@ const getUsers = asyncHandler(async (req, res) => {
     res.status(200).json(users);
 });
 
-const getUserDetails = asyncHandler(async(req,res)=>{
+const getUserDetails = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
-    if(user){
+    if (user) {
         res.status(200).json(user)
-    }else{
+    } else {
         res.status(400);
         throw new Error("User no find")
     }

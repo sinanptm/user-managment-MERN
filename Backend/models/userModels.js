@@ -19,9 +19,9 @@ const userSchema = mongoose.Schema({
         type: Number,
         required: true
     },
-    image : {
+    image: {
         type: String,
-        required:true
+        required: true
     }
 
 }, {

@@ -12,10 +12,11 @@ import {
 const router = express.Router();
 
 router.post('/auth', authAdmin);
-router.use(protectAdmin)
+
+router.use(protectAdmin);
+
 router.get('/users', getUsers);
-router.get('/user/:id', getUserDetails);
-router.put('/users/:id', updateUser);
+router.route('/user/:id').get(getUserDetails).put(updateUser);
 router.post('/logout', logoutAdmin);
 
 export default router;
