@@ -63,7 +63,7 @@ const Header = () => {
             title={
               <>
                 <Image 
-                  src={adminInfo.image} 
+                  src={'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'} 
                   roundedCircle 
                   width="30" 
                   height="30" 

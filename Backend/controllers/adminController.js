@@ -40,10 +40,11 @@ const updateUser = asyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
+        user.image = req.body.image || user.image;
         if (req.body.password) {
             user.password = req.body.password;
         }
-        
+
         const updateUser = await user.save();
         res.status(200).json(updateUser);
     } else {

@@ -17,7 +17,7 @@ const AdminDashboard = () => {
         const response = await axios.get("/api/admin/users");
         setLoading(false);
         setUsers(response.data);
-        setFilteredUsers(response.data); // Initialize filteredUsers with all users
+        setFilteredUsers(response.data); 
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -27,7 +27,6 @@ const AdminDashboard = () => {
   }, []);
 
   useEffect(() => {
-    // Filter users based on search input whenever search changes
     const filteredUsersList = users.filter(user =>
       user.name.toLowerCase().includes(search.toLowerCase())
     );
