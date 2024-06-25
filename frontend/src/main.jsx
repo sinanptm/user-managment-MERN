@@ -19,9 +19,7 @@ const LoginScreen = lazy(() => import("./screens/LoginScreen.jsx"));
 const RegisterScreen = lazy(() => import("./screens/RegisterScreen.jsx"));
 const AdminDashboard = lazy(() => import("./screens/AdminDashboard.jsx"));
 const AdminLoginScreen = lazy(() => import("./screens/AdminLoginScreen.jsx"));
-const AdminEditUserScreen = lazy(() =>
-  import("./screens/AdminEditUserForm.jsx")
-);
+const AdminEditUserScreen = lazy(() => import("./screens/AdminEditUserForm.jsx"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
