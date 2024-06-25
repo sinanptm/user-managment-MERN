@@ -4,7 +4,7 @@ import { Form, Button, Col, Image } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 import isValidEmail from "../utils/isValidEmail";
-import { uploadImageToCloudinary } from "../utils/Cloudinary"; 
+import { uploadImageToCloudinary } from "../utils/Cloudinary";
 import { useLoading } from "../provider/IsLoadingProvider";
 import Spinner from "../components/SpinnerComponent";
 
@@ -14,7 +14,7 @@ const EditUserForm = () => {
     name: "",
     number: "",
     email: "",
-    image: ""
+    image: "",
   });
   const [imagePreview, setImagePreview] = useState("");
   const { id } = useParams();
@@ -30,7 +30,7 @@ const EditUserForm = () => {
           name: response.data.name,
           number: response.data.number,
           email: response.data.email,
-          image: response.data.image
+          image: response.data.image,
         });
         setImagePreview(response.data.image);
       } catch (error) {
@@ -104,7 +104,7 @@ const EditUserForm = () => {
           image: imageUrl,
         };
 
-        await axios.put(`/api/admin/users/${id}`, updateFormData);
+        await axios.put(`/api/admin/user/${id}`, updateFormData);
         navigate("/admin");
         toast.success("User updated successfully");
       } catch (error) {
@@ -117,7 +117,6 @@ const EditUserForm = () => {
     return <Spinner />;
   }
 
-  
   return (
     <div>
       <h2>Edit User</h2>
@@ -156,7 +155,11 @@ const EditUserForm = () => {
         <br />
         {imagePreview && (
           <Col xs={4} md={3}>
-            <Image src={imagePreview} roundedCircle style={{ width: "100px", height: "100px" }} />
+            <Image
+              src={imagePreview}
+              roundedCircle
+              style={{ width: "100px", height: "100px" }}
+            />
           </Col>
         )}
         <br />

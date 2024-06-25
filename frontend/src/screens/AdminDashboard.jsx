@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Table, Button, Navbar, Container, FormControl,Image } from "react-bootstrap";
+import {
+  Table,
+  Button,
+  Navbar,
+  Container,
+  FormControl,
+  Image,
+} from "react-bootstrap";
 import Spinner from "../components/SpinnerComponent";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +24,7 @@ const AdminDashboard = () => {
         const response = await axios.get("/api/admin/users");
         setLoading(false);
         setUsers(response.data);
-        setFilteredUsers(response.data); 
+        setFilteredUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -27,7 +34,7 @@ const AdminDashboard = () => {
   }, []);
 
   useEffect(() => {
-    const filteredUsersList = users.filter(user =>
+    const filteredUsersList = users.filter((user) =>
       user.name.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredUsers(filteredUsersList);
@@ -48,7 +55,13 @@ const AdminDashboard = () => {
   return (
     <div>
       <h1>Admin Dashboard</h1>
-      <Navbar bg="white" variant="dark" expand="lg" collapseOnSelect style={{ height: '50px' }}>
+      <Navbar
+        bg="white"
+        variant="dark"
+        expand="lg"
+        collapseOnSelect
+        style={{ height: "50px" }}
+      >
         <Container>
           <FormControl
             type="text"
@@ -74,13 +87,13 @@ const AdminDashboard = () => {
               <td>{user.number}</td>
               <td>{user.email}</td>
               <td>
-              <Image 
-                  src={user.image} 
-                  roundedCircle 
-                  width="30" 
-                  height="30" 
-                  alt="Profile" 
-                  className="me-2" 
+                <Image
+                  src={user.image}
+                  roundedCircle
+                  width="30"
+                  height="30"
+                  alt="Profile"
+                  className="me-2"
                 />
               </td>
               <td>

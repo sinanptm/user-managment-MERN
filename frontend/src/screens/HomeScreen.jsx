@@ -1,10 +1,8 @@
-import React from 'react'
-import ProfileScreen from '../components/ProfileContainer.jsx'
+import React from "react";
+import ProfileScreen from "../components/ProfileContainer.jsx";
 
 const HomePage = () => {
-  return (
-    <ProfileScreen />
-  )
-}
+  return <ProfileScreen />;
+};
 
-export default HomePage
+export default HomePage;

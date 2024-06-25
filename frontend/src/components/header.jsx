@@ -1,13 +1,16 @@
-import React from 'react';
-import { Navbar, Nav, Container, NavDropdown, Image } from 'react-bootstrap';
-import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { useLogoutMutation, useAdminLogoutMutation } from '../Slices/usersApiSlice';
-import { logout, adminLogout } from '../Slices/authSlice';
+import React from "react";
+import { Navbar, Nav, Container, NavDropdown, Image } from "react-bootstrap";
+import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  useLogoutMutation,
+  useAdminLogoutMutation,
+} from "../Slices/usersApiSlice";
+import { logout, adminLogout } from "../Slices/authSlice";
 
 const Header = () => {
-  const { userInfo, adminInfo } = useSelector((state) => state.auth); 
+  const { userInfo, adminInfo } = useSelector((state) => state.auth);
   const [logoutApiCall] = useLogoutMutation();
   const [adminLogoutApiCall] = useAdminLogoutMutation();
 
@@ -38,20 +41,20 @@ const Header = () => {
     return (
       <>
         {userInfo ? (
-          <NavDropdown 
+          <NavDropdown
             title={
               <>
-                <Image 
-                  src={userInfo.image} 
-                  roundedCircle 
-                  width="30" 
-                  height="30" 
-                  alt="Profile" 
-                  className="me-2" 
+                <Image
+                  src={userInfo.image}
+                  roundedCircle
+                  width="30"
+                  height="30"
+                  alt="Profile"
+                  className="me-2"
                 />
                 {userInfo.name}
               </>
-            } 
+            }
             id="username"
           >
             <NavDropdown.Item onClick={userLogoutHandler}>
@@ -59,20 +62,22 @@ const Header = () => {
             </NavDropdown.Item>
           </NavDropdown>
         ) : adminInfo ? (
-          <NavDropdown 
+          <NavDropdown
             title={
               <>
-                <Image 
-                  src={'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'} 
-                  roundedCircle 
-                  width="30" 
-                  height="30" 
-                  alt="Profile" 
-                  className="me-2" 
+                <Image
+                  src={
+                    "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+                  }
+                  roundedCircle
+                  width="30"
+                  height="30"
+                  alt="Profile"
+                  className="me-2"
                 />
                 Admin
               </>
-            } 
+            }
             id="adminUsername"
           >
             <NavDropdown.Item onClick={adminLogoutHandler}>

@@ -1,8 +1,6 @@
 import React from "react";
 import { BeatLoader, PropagateLoader } from "react-spinners";
 
-
-
 const spinnerStyle = {
   display: "flex",
   justifyContent: "center",
@@ -22,7 +20,6 @@ const propagateStyle = {
 export const PropagateLoaders = () => (
   <PropagateLoader size={4} cssOverride={propagateStyle} />
 );
-
 
 const lazySpinner = () => {
   return (
