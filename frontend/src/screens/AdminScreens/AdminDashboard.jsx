@@ -9,7 +9,7 @@ import {
   FormControl,
   Image,
 } from "react-bootstrap";
-import Spinner from "../components/SpinnerComponent";
+import Spinner from "../../components/SpinnerComponent";
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);

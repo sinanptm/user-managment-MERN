@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Row, Col, Image } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import FormContainer from "../components/FormContainer.jsx";
+import FormContainer from "../../components/FormContainer.jsx";
 import { toast } from "react-toastify";
-import Spinner from "../components/SpinnerComponent";
+import Spinner from "../../components/SpinnerComponent.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { useRegisterMutation } from "../Slices/usersApiSlice";
-import { setCredentials } from "../Slices/authSlice";
-import isValidEmail from "../utils/isValidEmail.js";
-import { uploadImageToCloudinary } from "../utils/Cloudinary.js";
-import { useLoading } from "../provider/IsLoadingProvider.jsx";
+import { useRegisterMutation } from "../../Slices/usersApiSlice.js";
+import { setCredentials } from "../../Slices/authSlice.js";
+import isValidEmail from "../../utils/isValidEmail.js";
+import { uploadImageToCloudinary } from "../../utils/Cloudinary.js";
+import { useLoading } from "../../provider/IsLoadingProvider.jsx";
 
 const RegisterScreen = () => {
   const [formData, setFormData] = useState({

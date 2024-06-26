@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLoginMutation, useAdminLoginMutation } from '../Slices/usersApiSlice.js';
-import { setAdminCredentials } from '../Slices/authSlice.js';
+import { useLoginMutation, useAdminLoginMutation } from '../../Slices/usersApiSlice.js';
+import { setAdminCredentials } from '../../Slices/authSlice.js';
 import { toast } from 'react-toastify';
-import FormContainer from '../components/FormContainer';
-import Spinner from '../components/SpinnerComponent';
+import FormContainer from '../../components/FormContainer.jsx';
+import Spinner from '../../components/SpinnerComponent.jsx';
 
 const LoginPage = () => {
     const navigate = useNavigate();

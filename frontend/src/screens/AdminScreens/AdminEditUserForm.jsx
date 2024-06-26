@@ -3,10 +3,10 @@ import axios from "axios";
 import { Form, Button, Col, Image } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import isValidEmail from "../utils/isValidEmail";
-import { uploadImageToCloudinary } from "../utils/Cloudinary";
-import { useLoading } from "../provider/IsLoadingProvider";
-import Spinner from "../components/SpinnerComponent";
+import isValidEmail from "../../utils/isValidEmail";
+import { uploadImageToCloudinary } from "../../utils/Cloudinary";
+import { useLoading } from "../../provider/IsLoadingProvider";
+import Spinner from "../../components/SpinnerComponent";
 
 const EditUserForm = () => {
   const [user, setUser] = useState({});

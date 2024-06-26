@@ -1,25 +1,20 @@
 import React, { lazy, Suspense } from "react";
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
-import ReactDOM from "react-dom/client";
+import { createBrowserRouter, createRoutesFromElements, Route,RouterProvider } from "react-router-dom";
+import { AdminPrivateRoute } from "./components/PrivateRoute.jsx";
 import { Provider } from "react-redux";
+import ReactDOM from "react-dom/client";
 import Spinner from "./components/SpinnerComponent.jsx";
 import App from "./App.jsx";
 import store from "./Store.js";
 import UserPrivateRoute from "./components/PrivateRoute.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { AdminPrivateRoute } from "./components/PrivateRoute.jsx";
 
-const HomeScreen = lazy(() => import("./screens/HomeScreen.jsx"));
-const LoginScreen = lazy(() => import("./screens/LoginScreen.jsx"));
-const RegisterScreen = lazy(() => import("./screens/RegisterScreen.jsx"));
-const AdminDashboard = lazy(() => import("./screens/AdminDashboard.jsx"));
-const AdminLoginScreen = lazy(() => import("./screens/AdminLoginScreen.jsx"));
-const AdminEditUserScreen = lazy(() => import("./screens/AdminEditUserForm.jsx"));
+const HomeScreen = lazy(() => import("./screens/UserScreens/HomeScreen.jsx"));
+const LoginScreen = lazy(() => import("./screens/UserScreens/LoginScreen.jsx"));
+const RegisterScreen = lazy(() => import("./screens/UserScreens/RegisterScreen.jsx"));
+const AdminDashboard = lazy(() => import("./screens/AdminScreens/AdminDashboard.jsx"));
+const AdminLoginScreen = lazy(() => import("./screens/AdminScreens/AdminLoginScreen.jsx"));
+const AdminEditUserScreen = lazy(() => import("./screens/AdminScreens/AdminEditUserForm.jsx"));
 
 const router = createBrowserRouter(
   createRoutesFromElements(
