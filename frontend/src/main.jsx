@@ -13,8 +13,8 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      ...UserRoutes,
       ...AdminRoutes,
+      ...UserRoutes,
     ],
   },
 ]);
