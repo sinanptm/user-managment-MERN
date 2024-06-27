@@ -6,8 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   useLogoutMutation,
   useAdminLogoutMutation,
-} from "../Slices/usersApiSlice";
-import { logout, adminLogout } from "../Slices/authSlice";
+} from "../slices/usersApiSlice";
+import { logout, adminLogout } from "../slices/authSlice";
 
 const Header = () => {
   const { userInfo, adminInfo } = useSelector((state) => state.auth);
