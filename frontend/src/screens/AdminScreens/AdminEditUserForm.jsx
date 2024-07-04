@@ -7,6 +7,7 @@ import isValidEmail from "../../utils/isValidEmail";
 import { uploadImageToCloudinary } from "../../utils/Cloudinary";
 import { useLoading } from "../../provider/IsLoadingProvider";
 import Spinner from "../../components/SpinnerComponent";
+import { useUpdateUserMutation } from "../../slices/usersApiSlice";
 
 const EditUserForm = () => {
   const [user, setUser] = useState({});
@@ -20,6 +21,8 @@ const EditUserForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { loading, setLoading } = useLoading();
+  const [updateUserMutation] = useUpdateUserMutation();
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -102,13 +105,14 @@ const EditUserForm = () => {
           number,
           email,
           image: imageUrl,
+          id
         };
-
-        await axios.put(`/api/admin/user/${id}`, updateFormData);
+        await updateUserMutation(updateFormData).unwrap();
         navigate("/admin");
         toast.success("User updated successfully");
       } catch (error) {
-        toast.error("Error updating user");
+        toast.error("Error updating user ");
+        console.log(error);
       }
     }
   };

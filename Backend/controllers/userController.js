@@ -9,7 +9,7 @@ const authUser = asyncHandler(async (req, res) => {
     if (user && await user.matchPassword(password)) {
         generateToken(res, user._id);
         res.status(200).json({
-            id: user._id,
+            _id: user._id,
             name: user.name,
             email: user.email,
             number: user.number,
@@ -42,7 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
     if (user) {
         generateToken(res, user._id);
         res.status(201).json({
-            id: user._id,
+            _id: user._id,
             name: user.name,
             email: user.email,
             number: user.number,
@@ -65,7 +65,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 
 const getProfile = asyncHandler(async (req, res) => {
-    const { email, name, _id, number, image } = req.user;
+    const { email, name, _id, number, image } = req.user;z
     res.status(200).json({ _id, name, email, number, image });
 });
 
@@ -87,7 +87,7 @@ const updateProfile = asyncHandler(async (req, res) => {
             name: updatedUser.name,
             email: updatedUser.email,
             number: updatedUser.number,
-            image: updatedUser.image
+            image: updatedUser.image,
         });
     } else {
         res.status(404);
